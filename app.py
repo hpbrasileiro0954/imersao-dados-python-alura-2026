@@ -1,6 +1,24 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import streamlit_authenticator as stauth
+import yaml
+from yaml.loader import SafeLoader
+
+with open('config.yaml') as file:
+    config = yaml.load(file, Loader=SafeLoader)
+
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days']
+)
+
+try:
+    authenticator.login()
+except Exception as e:
+    st.error(e)
 
 # --- Configuração da Página ---
 # Define o título da página, o ícone e o layout para ocupar a largura inteira.
@@ -12,6 +30,10 @@ st.set_page_config(
 
 # --- Carregamento dos dados ---
 df = pd.read_csv("https://raw.githubusercontent.com/vqrca/dashboard_salarios_dados/refs/heads/main/dados-imersao-final.csv")
+
+if st.session_state["authentication_status"]:
+    authenticator.logout()
+    st.write(f'Bem Vindo *{st.session_state["name"]}*')
 
 # --- Barra Lateral (Filtros) ---
 st.sidebar.header("🔍 Filtros")
