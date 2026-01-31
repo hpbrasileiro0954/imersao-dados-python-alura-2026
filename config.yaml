@@ -1,0 +1,21 @@
+credentials:
+  usernames:
+    hpbrasileiro:
+      email: hpbrasileiro@gmail.com
+      logged_in: False
+      name: Hernando Dev
+      password: sl@12345
+    hpbrasileiro09:
+      email: hpbrasileiro09@hotmail.com
+      logged_in: False
+      name: Hernando Hot
+      password: sl@12345
+    desenvolvimento2:
+      email: desenvolvimento2@slpart.com.br
+      logged_in: False
+      name: Hernando Adm
+      password: sl@12345
+cookie:
+  expiry_days: 1
+  key: some_signature_key
+  name: some_cookie_name
