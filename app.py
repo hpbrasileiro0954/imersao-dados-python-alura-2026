@@ -23,10 +23,13 @@ st.set_page_config(
     layout="wide",
 )
 
-try:
+authenticator.login()
 
-    authenticator.login()
-    
+if st.session_state["authentication_status"]:
+    authenticator.logout()
+    st.write(f'Bem Vindo *{st.session_state["name"]}*')
+    st.title('Página de Sistema')
+
     # --- Carregamento dos dados ---
     df = pd.read_csv("https://raw.githubusercontent.com/vqrca/dashboard_salarios_dados/refs/heads/main/dados-imersao-final.csv")
     
@@ -158,6 +161,9 @@ try:
     st.subheader("Dados Detalhados")
     st.dataframe(df_filtrado)
 
-except Exception as e:
-    st.error(e)
+elif st.session_state["authentication_status"] is False:
+    st.error('Usuário/Senha is inválido')
+elif st.session_state["authentication_status"] is None:
+    st.warning('Por Favor, utilize seu usuário e senha!')
+    
 
