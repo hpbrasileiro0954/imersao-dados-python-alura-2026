@@ -5,6 +5,14 @@ import streamlit_authenticator as stauth
 import yaml
 from yaml.loader import SafeLoader
 
+# --- Configuração da Página ---
+# Define o título da página, o ícone e o layout para ocupar a largura inteira.
+st.set_page_config(
+    page_title="Dashboard de Salários na Área de Dados",
+    page_icon="📊",
+    layout="wide",
+)
+
 with open('config.yaml') as file:
     config = yaml.load(file, Loader=SafeLoader)
 
@@ -13,14 +21,6 @@ authenticator = stauth.Authenticate(
     config['cookie']['name'],
     config['cookie']['key'],
     config['cookie']['expiry_days']
-)
-
-# --- Configuração da Página ---
-# Define o título da página, o ícone e o layout para ocupar a largura inteira.
-st.set_page_config(
-    page_title="Dashboard de Salários na Área de Dados",
-    page_icon="📊",
-    layout="wide",
 )
 
 authenticator.login()
